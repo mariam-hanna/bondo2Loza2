@@ -1,0 +1,53 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zend Project</title>
+
+    <link href="<?= $this->baseUrl() ?>/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<?= $this->baseUrl() ?>/css/style.css" />
+
+    <script type="text/javascript" src= "<?= $this->baseUrl() ?>/js/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="<?= $this->baseUrl() ?>/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?= $this->baseUrl() ?>/js/less-1.3.3.min.js" ></script>
+
+    
+
+</head>
+
+<?php
+$user_data = Zend_Auth::getInstance()->getStorage()->read();
+?>
+<div id="header">
+    <div>
+        <a href="index.html"><img src="<?= $this->baseUrl() ?>/images/logo.gif" alt="Logo" /></a>
+        <ul>
+
+            <li class="current"><a href="<?= $this->baseUrl() ?>/user/index">الرئيسية</a></li>
+
+            <?php
+            if (isset($user_data->id)) {
+                ?>
+                <li class="current"><a href= "<?= $this->baseUrl() ?>/user/logout">الخروج  </a></li>
+                <?php
+                if ($user_data->type == "parent") {
+                    ?>
+                    <li class="current"><a href= "<?= $this->baseUrl() ?>/user/evaluatechild">قيم طفلك</a></li>
+                    <li class="current"><a href= "<?= $this->baseUrl() ?>/user/evaluatesite">قيم الموقع</a></li>
+                    <?php
+                }
+            } else {
+                ?>
+                <li class="current"><a href="<?= $this->baseUrl() ?>/user/signup">التسجيل</a></li>
+                <li class="current"><a href="<?= $this->baseUrl() ?>/user/login">الدخول</a></li>
+
+                <?php
+            }
+            ?>
+
+
+        </ul>
+    </div>
+</div>
+
+<?php echo $this->layout()->content; ?>
